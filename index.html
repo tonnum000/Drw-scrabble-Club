@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scrabble Pro Hub - คู่มือและเครื่องมือครบวงจร</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Base Styles & Variables */
+        :root {
+            --primary-color: #6a11cb; /* Deeper, rich purple */
+            --secondary-color: #2575fc; /* Vibrant blue */
+            --accent-color: #ff9800; /* Warm orange for highlights */
+            --text-dark: #333d51; /* Darker, sophisticated text */
+            --text-light: #f4f6f8; /* Light text for dark backgrounds */
+            --bg-light: #f4f6f8; /* Very light grey background */
+            --bg-medium: #e0e6ed; /* Slightly darker grey */
+            --card-bg: #ffffff;
+            --shadow-light: rgba(0, 0, 0, 0.08);
+            --shadow-medium: rgba(0, 0, 0, 0.15);
+            --shadow-heavy: rgba(0, 0, 0, 0.25);
+            --border-radius-main: 25px;
+            --border-radius-card: 18px;
+            --transition-speed: 0.4s; /* Slower, smoother transitions */
+            --gradient-1: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%); /* Purple to blue */
+            --gradient-2: linear-gradient(135deg, #2575fc 0%, #6a11cb 100%); /* Blue to purple */
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Kanit', sans-serif;
+            margin: 0;
+            background: var(--bg-light);
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+            color: var(--text-dark);
+            padding: 30px;
+            box-sizing: border-box;
+            overflow-y: auto;
+            scroll-behavior: smooth;
+            background-image: url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23c2c7d4" fill-opacity="0.2"%3E%3Cpath d="M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zm12 12V8h-2v4h-4v2h4v4h2v-4h4v-2h-4zM0 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zm12 12V8h-2v4h-4v2h4v4h2v-4h4v-2h-4zM36 46v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 12v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM0 46v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0 12v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm48 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm12-12v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-24 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zM12 46v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm12 12v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-24 0v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm48-48V0h-2v4h-4v2h4v4h2V6h4V4h-4zm12 12V8h-2v4h-4v2h4v4h2v-4h4v-2h-4zm-24 0V8h-2v4h-4v2h4v4h2v-4h4v-2h-4zM12 0v4h-2v-4h-4V-2h4V-6h2v4h4v2h-4zm24 0v4h-2v-4h-4V-2h4V-6h2v4h4v2h-4zm24 0v4h-2v-4h-4V-2h4V-6h2v4h4v2h-4zM0 0v4h-2v-4h-4V-2h4V-6h2v4h4v2h-4z" transform="translate(2 2)"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'); /* Subtle background pattern */
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: var(--border-radius-main);
+            box-shadow: 0 25px 60px var(--shadow-heavy);
+            padding: 45px;
+            width: 98%;
+            max-width: 1400px; /* Wider container */
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 35px;
+            min-height: calc(100vh - 60px);
+            animation: fadeIn 0.9s ease-out;
+            overflow: hidden;
+            border: 1px solid var(--bg-medium); /* Subtle border */
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Header */
+        header {
+            background: var(--gradient-1);
+            color: var(--text-light);
+            padding: 40px;
+            text-align: center;
+            border-radius: var(--border-radius-card);
+            box-shadow: 0 10px 30px var(--shadow-medium);
+            margin-bottom: 35px;
+            position: relative;
+            overflow: hidden;
+            /* Glassmorphism effect */
+            background-color: rgba(255, 255, 255, 0.15); /* Slightly transparent */
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            animation: headerEntrance 1.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        @keyframes headerEntrance {
+            from { opacity: 0; transform: translateY(-50px) scale(0.9); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        header::before, header::after {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        header::before {
+            width: 180px; height: 180px; top: -60px; left: -60px;
+            animation: headerBubble1 12s infinite ease-in-out;
+        }
+
+        header::after {
+            width: 220px; height: 220px; bottom: -80px; right: -80px;
+            animation: headerBubble2 15s infinite ease-in-out;
+        }
+
+        @keyframes headerBubble1 {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+            50% { transform: translate(30px, 30px) scale(1.1); opacity: 0.25; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.15; }
+        }
+
+        @keyframes headerBubble2 {
+            0% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+            50% { transform: translate(-40px, -40px) scale(1.05); opacity: 0.3; }
+            100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
+        }
+
+        header h1 {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 4.8em; /* Even larger font */
+            font-weight: 700;
+            letter-spacing: 4px;
+            text-shadow: 4px 4px 10px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+            animation: textPop 1s ease-out 0.5s forwards; /* Delayed animation */
+            opacity: 0;
+        }
+
+        @keyframes textPop {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        header p {
+            margin: 20px 0 0;
+            font-size: 1.5em;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            animation: textFadeIn 1s ease-out 0.7s forwards;
+            opacity: 0;
+        }
+
+        @keyframes textFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Main Navigation */
+        .main-nav {
+            display: grid; /* Use Grid for better layout */
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); /* Adaptive columns */
+            gap: 20px; /* Increased gap */
+            margin-bottom: 35px;
+            padding: 25px;
+            background-color: var(--bg-medium);
+            border-radius: var(--border-radius-card);
+            box-shadow: inset 0 3px 10px var(--shadow-light);
+        }
+
+        .nav-button {
+            padding: 18px 25px; /* More padding for better feel */
+            font-size: 1.25em; /* Slightly larger */
+            font-weight: 600;
+            color: var(--text-dark);
+            background-color: var(--card-bg);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1);
+            text-decoration: none;
+            text-align: center;
+            box-shadow: 0 6px 15px var(--shadow-light);
+            display: flex;
+            align-items: center;
+            justify-content: center; /* Center content */
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--bg-medium);
+            /* Microinteraction: Sparkle on hover */
+            background-image: radial-gradient(circle at center, transparent 0%, transparent 100%);
+            background-size: 0% 0%;
+            background-repeat: no-repeat;
+        }
+
+        .nav-button::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.4s ease-out, height 0.4s ease-out, opacity 0.4s ease-out;
+            opacity: 0;
+            z-index: 0;
+        }
+
+        .nav-button:hover::before {
+            width: 180%;
+            height: 180%;
+            opacity: 1;
+        }
+
+        .nav-button i, .nav-button span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .nav-button i {
+            font-size: 1.5em;
+            color: var(--primary-color);
+            transition: color var(--transition-speed) ease;
+        }
+
+        .nav-button:hover {
+            transform: translateY(-8px) scale(1.03);
+            box-shadow: 0 15px 35px var(--shadow-medium);
+            color: var(--text-light);
+            background: var(--gradient-1); /* Revert background for actual hover */
+        }
+
+        .nav-button:hover i {
+            color: var(--text-light);
+        }
+
+        .nav-button.active {
+            background: var(--gradient-1);
+            color: var(--text-light);
+            box-shadow: 0 8px 25px var(--shadow-medium), inset 0 0 20px rgba(0, 0, 0, 0.3);
+            transform: translateY(0);
+            border-color: transparent;
+        }
+        .nav-button.active i {
+            color: var(--text-light);
+        }
+
+        /* Content Sections */
+        .content-section {
+            display: none;
+            padding: 40px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--bg-medium);
+            border-radius: var(--border-radius-card);
+            box-shadow: 0 8px 30px var(--shadow-light);
+            flex-grow: 1;
+            min-height: 400px; /* Ensure content sections have a minimum height */
+            overflow-y: auto;
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+            animation: slideIn 0.8s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative; /* For inner elements */
+        }
+
+        .content-section::-webkit-scrollbar {
+            display: none;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+
+        .content-section.active {
+            display: block;
+        }
+
+        h2 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 3.2em;
+            margin-top: 0;
+            margin-bottom: 35px;
+            color: var(--primary-color);
+            position: relative;
+            padding-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 120px;
+            height: 6px;
+            background: var(--gradient-1);
+            border-radius: 3px;
+        }
+        h2 i {
+            font-size: 0.9em;
+            color: var(--secondary-color);
+        }
+
+        h3 {
+            color: var(--secondary-color);
+            font-size: 2.2em;
+            margin-bottom: 25px;
+            border-left: 6px solid var(--accent-color); /* Orange accent */
+            padding-left: 20px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+
+        h4 {
+            color: var(--primary-color);
+            font-size: 1.8em;
+            margin-top: 30px;
+            margin-bottom: 18px;
+            border-bottom: 2px dashed var(--bg-medium);
+            padding-bottom: 10px;
+        }
+
+        p, ul, ol {
+            line-height: 2;
+            margin-bottom: 20px;
+            font-size: 1.15em;
+            color: var(--text-dark);
+        }
+
+        ul, ol {
+            padding-left: 40px;
+        }
+
+        ul li, ol li {
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid var(--bg-medium);
+        }
+
+        strong {
+            color: var(--primary-color);
+            font-weight: 700;
+        }
+
+        /* Table Styles (for tile distribution) */
+        .tile-distribution-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0;
+            margin-top: 25px;
+            box-shadow: 0 6px 20px var(--shadow-light);
+            border-radius: var(--border-radius-card);
+            overflow: hidden;
+            background-color: var(--card-bg);
+        }
+        .tile-distribution-table th, .tile-distribution-table td {
+            border: 1px solid var(--bg-medium);
+            padding: 18px;
+            text-align: center;
+            font-size: 1.15em;
+            color: var(--text-dark);
+        }
+        .tile-distribution-table th {
+            background: var(--gradient-1);
+            color: var(--text-light);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .tile-distribution-table tr:nth-child(even) {
+            background-color: var(--bg-light);
+        }
+        .tile-distribution-table tr:hover {
+            background-color: var(--bg-medium);
+            transition: background-color 0.2s ease;
+        }
+
+        /* Timer Specific Styles */
+        .timer-controls {
+            display: flex;
+            justify-content: space-around;
+            align-items: stretch;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+            gap: 30px;
+        }
+
+        .player-timer {
+            text-align: center;
+            background: var(--bg-light);
+            padding: 30px;
+            border-radius: var(--border-radius-card);
+            box-shadow: 0 6px 20px var(--shadow-light);
+            flex: 1;
+            min-width: 320px;
+            transition: all var(--transition-speed) ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid var(--bg-medium);
+        }
+
+        .player-timer:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px var(--shadow-medium);
+        }
+
+        #player1-time, #player2-time {
+            font-family: 'Poppins', Arial Black, sans-serif;
+            font-size: 5em; /* Even larger */
+            font-weight: bold;
+            color: var(--primary-color);
+            margin: 25px 0;
+            letter-spacing: 4px;
+            text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2);
+            position: relative;
+        }
+
+        #player1-time.time-warning, #player2-time.time-warning {
+            color: var(--accent-color); /* Orange warning */
+            animation: flashWarning 1s infinite alternate;
+        }
+
+        #player1-time.time-critical, #player2-time.time-critical {
+            color: #d32f2f; /* Red critical */
+            animation: flashCritical 0.5s infinite alternate;
+        }
+
+        @keyframes flashWarning {
+            from { opacity: 1; }
+            to { opacity: 0.7; }
+        }
+        @keyframes flashCritical {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(1.05); opacity: 0.8; }
+        }
+
+
+        .switch-button {
+            background: var(--gradient-1);
+            margin-top: 25px;
+            font-size: 1.2em;
+            padding: 15px 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border: none;
+            border-radius: 10px;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            position: relative; /* For ripple effect */
+            overflow: hidden;
+        }
+
+        .switch-button::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            opacity: 1;
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+        }
+
+        .switch-button:active::before {
+            transform: scale(2);
+            opacity: 0;
+            transition: 0s; /* Reset transition immediately on active */
+        }
+
+
+        .switch-button:hover {
+            background: var(--gradient-2);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .switch-button.active {
+            background: var(--accent-color); /* Active switch button turns orange */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35), inset 0 0 10px rgba(0, 0, 0, 0.2);
+            transform: translateY(0);
+            color: white;
+        }
+
+        .main-buttons {
+            text-align: center;
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .main-buttons button {
+            padding: 18px 40px;
+            font-size: 1.4em;
+            background: var(--gradient-1);
+            color: var(--text-light);
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all var(--transition-speed) cubic-bezier(0.25, 0.8, 0.25, 1);
+            box-shadow: 0 6px 18px var(--shadow-light);
+            min-width: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            position: relative; /* For ripple effect */
+            overflow: hidden;
+        }
+        .main-buttons button::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: scale(0);
+            opacity: 1;
+            transition: transform 0.6s ease-out, opacity 0.6s ease-out;
+        }
+
+        .main-buttons button:active::before {
+            transform: scale(2);
+            opacity: 0;
+            transition: 0s; /* Reset transition immediately on active */
+        }
+
+        .main-buttons button:hover {
+            background: var(--gradient-2);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px var(--shadow-medium);
+        }
+
+        .main-buttons button:active {
+            transform: translateY(0);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .main-buttons button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            background: #cccccc;
+            box-shadow: none;
+            transform: none;
+        }
+
+        .current-turn {
+            text-align: center;
+            font-size: 2em;
+            font-weight: bold;
+            margin-top: 40px;
+            color: var(--primary-color);
+            background-color: var(--bg-medium);
+            padding: 25px;
+            border-radius: var(--border-radius-card);
+            box-shadow: 0 4px 15px var(--shadow-light);
+            animation: pulse 2s infinite alternate ease-in-out;
+            border: 1px solid var(--bg-medium);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 4px 15px var(--shadow-light); }
+            100% { transform: scale(1.02); box-shadow: 0 6px 20px var(--shadow-medium); }
+        }
+
+        .current-turn span {
+            color: var(--accent-color);
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 1px solid var(--bg-medium);
+            color: #777;
+            font-size: 1.05em;
+            opacity: 0.9;
+        }
+
+        /* Floating Elements (Background - more refined) */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            perspective: 1500px;
+            overflow: hidden;
+        }
+
+        .tile {
+            position: absolute;
+            background-color: rgba(255, 255, 255, 0.3); /* More translucent */
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 15px;
+            width: 70px; /* Larger tiles */
+            height: 70px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            color: var(--primary-color);
+            font-size: 3em; /* Larger font */
+            opacity: 0.5;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            animation: float 18s infinite alternate ease-in-out, drift 35s infinite linear;
+            transform-style: preserve-3d;
+            backdrop-filter: blur(3px); /* Stronger blur */
+            transform: translateZ(var(--z-index-val, 0)); /* Add Z-index for perspective */
+        }
+
+        /* Adjusting positions and Z-index for more depth */
+        .tile:nth-child(1) { top: 10%; left: 12%; animation-delay: 0s; --z-index-val: 50px; }
+        .tile:nth-child(2) { top: 70%; left: 5%; animation-delay: 7s; --z-index-val: 30px; transform: rotateY(-25deg); }
+        .tile:nth-child(3) { top: 15%; right: 10%; animation-delay: 2s; --z-index-val: 70px; transform: rotateX(30deg) rotate(15deg); }
+        .tile:nth-child(4) { top: 65%; right: 8%; animation-delay: 6s; --z-index-val: 40px; transform: rotateY(20deg) rotate(-10deg); }
+        .tile:nth-child(5) { top: 5%; left: 40%; animation-delay: 3s; --z-index-val: 20px; }
+        .tile:nth-child(6) { top: 85%; left: 35%; animation-delay: 8s; --z-index-val: 60px; transform: rotateZ(-15deg); }
+        .tile:nth-child(7) { top: 28%; left: 50%; animation-delay: 4s; --z-index-val: 45px; transform: rotateX(15deg) rotate(25deg); }
+        .tile:nth-child(8) { top: 45%; right: 3%; animation-delay: 9s; --z-index-val: 55px; transform: rotateZ(-20deg); }
+
+        @keyframes float {
+            0% { transform: translateY(0px) scale(1) rotate(0deg); }
+            50% { transform: translateY(50px) scale(1.05) rotate(5deg); }
+            100% { transform: translateY(0px) scale(1) rotate(0deg); }
+        }
+
+        @keyframes drift {
+            0% { transform: translateX(0px) rotateY(0deg) rotateX(0deg); }
+            25% { transform: translateX(100px) rotateY(90deg) rotateX(10deg); }
+            50% { transform: translateX(0px) rotateY(180deg) rotateX(0deg); }
+            75% { transform: translateX(-100px) rotateY(270deg) rotateX(-10deg); }
+            100% { transform: translateX(0px) rotateY(360deg) rotateX(0deg); }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .container {
+                padding: 35px;
+                max-width: 1000px;
+            }
+            header h1 {
+                font-size: 4em;
+            }
+            header p {
+                font-size: 1.3em;
+            }
+            .nav-button {
+                font-size: 1.1em;
+                padding: 15px 20px;
+            }
+            h2 {
+                font-size: 2.8em;
+            }
+            h3 {
+                font-size: 2em;
+            }
+            p, ul, ol {
+                font-size: 1.1em;
+            }
+            #player1-time, #player2-time {
+                font-size: 4.5em;
+            }
+            .tile {
+                width: 60px;
+                height: 60px;
+                font-size: 2.5em;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .container {
+                padding: 30px;
+                gap: 25px;
+            }
+            header h1 {
+                font-size: 3.5em;
+            }
+            header p {
+                font-size: 1.2em;
+            }
+            .main-nav {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 15px;
+            }
+            .nav-button {
+                font-size: 1em;
+                padding: 14px 18px;
+                gap: 10px;
+            }
+            .content-section {
+                padding: 30px;
+            }
+            h2 {
+                font-size: 2.4em;
+            }
+            h3 {
+                font-size: 1.8em;
+            }
+            p, ul, ol {
+                font-size: 1.05em;
+            }
+            .player-timer {
+                min-width: 280px;
+            }
+            #player1-time, #player2-time {
+                font-size: 4em;
+            }
+            .main-buttons button {
+                font-size: 1.3em;
+                padding: 16px 35px;
+            }
+            .tile {
+                width: 50px;
+                height: 50px;
+                font-size: 2.2em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 20px;
+            }
+            .container {
+                padding: 25px;
+                min-height: auto;
+                margin-top: 10px;
+            }
+            header {
+                padding: 30px;
+            }
+            header h1 {
+                font-size: 2.8em;
+                letter-spacing: 2px;
+            }
+            header p {
+                font-size: 1em;
+                margin-top: 15px;
+            }
+            .main-nav {
+                grid-template-columns: 1fr 1fr; /* Two columns on smaller screens */
+                gap: 10px;
+                padding: 15px;
+            }
+            .nav-button {
+                font-size: 0.95em;
+                padding: 12px 15px;
+                gap: 8px;
+            }
+            .content-section {
+                padding: 20px;
+            }
+            h2 {
+                font-size: 2em;
+                gap: 10px;
+                padding-bottom: 15px;
+            }
+            h2 i {
+                font-size: 0.8em;
+            }
+            h3 {
+                font-size: 1.5em;
+                padding-left: 15px;
+            }
+            p, ul, ol {
+                font-size: 1em;
+                line-height: 1.8;
+                margin-bottom: 15px;
+            }
+            ul, ol {
+                padding-left: 30px;
+            }
+            ul li, ol li {
+                margin-bottom: 10px;
+                padding-left: 5px;
+            }
+            .timer-controls {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .player-timer {
+                min-width: unset;
+                width: 100%;
+                padding: 25px;
+            }
+            #player1-time, #player2-time {
+                font-size: 3.5em;
+                margin: 15px 0;
+            }
+            .main-buttons button {
+                width: 90%;
+                margin: 5px auto;
+                font-size: 1.2em;
+                padding: 14px 30px;
+            }
+            .current-turn {
+                font-size: 1.5em;
+                padding: 20px;
+            }
+            .tile {
+                width: 45px;
+                height: 45px;
+                font-size: 1.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 10px;
+            }
+            .container {
+                padding: 15px;
+            }
+            header {
+                padding: 20px;
+            }
+            header h1 {
+                font-size: 2.2em;
+                letter-spacing: 1px;
+            }
+            header p {
+                font-size: 0.9em;
+                margin-top: 10px;
+            }
+            .main-nav {
+                grid-template-columns: 1fr; /* Single column on very small screens */
+                gap: 8px;
+                padding: 10px;
+            }
+            .nav-button {
+                font-size: 0.9em;
+                padding: 10px 15px;
+                gap: 8px;
+            }
+            .content-section {
+                padding: 15px;
+            }
+            h2 {
+                font-size: 1.8em;
+                padding-bottom: 12px;
+                margin-bottom: 20px;
+            }
+            h3 {
+                font-size: 1.3em;
+                margin-bottom: 15px;
+            }
+            p, ul, ol {
+                font-size: 0.95em;
+                line-height: 1.7;
+                margin-bottom: 15px;
+            }
+            ul, ol {
+                padding-left: 25px;
+            }
+            ul li, ol li {
+                margin-bottom: 10px;
+                padding-left: 5px;
+            }
+            #player1-time, #player2-time {
+                font-size: 3em;
+                margin: 15px 0;
+            }
+            .main-buttons {
+                gap: 10px;
+            }
+            .main-buttons button {
+                font-size: 1em;
+                padding: 12px 20px;
+                min-width: unset;
+                width: 100%;
+                gap: 8px;
+            }
+            .current-turn {
+                font-size: 1.2em;
+                padding: 15px;
+            }
+            .tile {
+                width: 35px;
+                height: 35px;
+                font-size: 1.5em;
+                border-radius: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Drw Scrabble Club</h1>
+            <p>ยกระดับเกมของคุณสู่ความเป็นมืออาชีพ!</p>
+        </header>
+
+        <nav class="main-nav">
+            <button class="nav-button" data-target="timer-section">
+                <i class="fas fa-stopwatch"></i> จับเวลา
+            </button>
+            <button class="nav-button" data-target="rules-section">
+                <i class="fas fa-gavel"></i> กติกา
+            </button>
+            <button class="nav-button" data-target="scoring-section">
+                <i class="fas fa-coins"></i> คะแนน & บิงโก
+            </button>
+            <button class="nav-button" data-target="strategy-section">
+                <i class="fas fa-brain"></i> กลยุทธ์
+            </button>
+            <button class="nav-button" data-target="history-benefits-section">
+                <i class="fas fa-lightbulb"></i> ประวัติ & ประโยชน์
+            </button>
+            <button class="nav-button" data-target="tiles-section">
+                <i class="fas fa-th"></i> เบี้ยตัวอักษร
+            </button>
+            <button class="nav-button" data-target="about-section">
+                <i class="fas fa-info-circle"></i> เกี่ยวกับ
+            </button>
+        </nav>
+
+        <section id="timer-section" class="content-section active">
+            <h2><i class="fas fa-stopwatch"></i> จับเวลาการเล่น (22 นาทีต่อฝั่ง)</h2>
+            <p>เครื่องมือจับเวลาสำหรับผู้เล่น Scrabble ช่วยให้การแข่งขันเป็นไปอย่างยุติธรรมและตื่นเต้น เหมาะสำหรับการฝึกฝนและแข่งขันจริง</p>
+            <div class="timer-controls">
+                <div class="player-timer">
+                    <h3>ผู้เล่น 1</h3>
+                    <p id="player1-time">22:00</p>
+                    <button id="switchPlayer1" class="switch-button"><i class="fas fa-play"></i> สลับไปผู้เล่น 1</button>
+                </div>
+                <div class="player-timer">
+                    <h3>ผู้เล่น 2</h3>
+                    <p id="player2-time">22:00</p>
+                    <button id="switchPlayer2" class="switch-button"><i class="fas fa-play"></i> สลับไปผู้เล่น 2</button>
+                </div>
+            </div>
+            <div class="main-buttons">
+                <button id="startButton"><i class="fas fa-play"></i> เริ่มจับเวลา</button>
+                <button id="pauseButton"><i class="fas fa-pause"></i> หยุดชั่วคราว</button>
+                <button id="resetButton"><i class="fas fa-redo"></i> รีเซ็ต</button>
+            </div>
+            <p class="current-turn">ตาเดิน: <span id="currentTurnDisplay">ผู้เล่น 1</span></p>
+        </section>
+
+        <section id="rules-section" class="content-section">
+            <h2><i class="fas fa-gavel"></i> กฎการเล่น Scrabble โดยละเอียด</h2>
+            <p>Scrabble เป็นเกมกระดานที่ต้องใช้ทักษะด้านภาษาและกลยุทธ์สูง ผู้เล่นจะแข่งขันกันสร้างคำศัพท์จากเบี้ยตัวอักษรบนกระดานขนาด 15x15 ช่อง เพื่อทำคะแนนให้ได้มากที่สุด</p>
+            <h3>1. อุปกรณ์ที่ใช้ในการเล่น:</h3>
+            <ul>
+                <li><strong>กระดาน Scrabble:</strong> ขนาด 15x15 ช่อง มีช่องพิเศษสำหรับโบนัสคะแนนตัวอักษร (Double/Triple Letter Score) และคะแนนคำ (Double/Triple Word Score)</li>
+                <li><strong>เบี้ยตัวอักษร 100 ตัว:</strong> แต่ละตัวมีคะแนนและจำนวนที่แตกต่างกันไป (ดูรายละเอียดในส่วน "เบี้ยตัวอักษร") รวมถึงเบี้ย 'Blank' 2 ตัวที่ใช้แทนตัวอักษรใดก็ได้</li>
+                <li><strong>ถุงใส่เบี้ย:</strong> สำหรับเก็บเบี้ยทั้งหมดและใช้จั่วเบี้ยระหว่างเกม</li>
+                <li><strong>แท่นวางเบี้ย (Rack):</strong> สำหรับผู้เล่นแต่ละคน วางเบี้ยได้สูงสุด 7 ตัว</li>
+            </ul>
+
+            <h3>2. การเริ่มต้นเกม:</h3>
+            <ol>
+                <li><strong>จั่วเบี้ยเริ่มต้น:</strong> ผู้เล่นแต่ละคนจั่วเบี้ย 7 ตัวจากถุง และวางไว้บนแท่นวางของตนเองโดยไม่ให้คู่ต่อสู้เห็น</li>
+                <li><strong>ผู้เล่นคนแรก:</strong> ผู้เล่นที่จั่วได้ตัวอักษรที่ใกล้ 'A' มากที่สุด (โดยเรียงตามพจนานุกรม) จะได้เริ่มเล่นก่อน (เบี้ย 'blank' ถือเป็น 'A' และมีสิทธิ์ได้เริ่มก่อน) ในกรณีที่เสมอกัน ให้จั่วใหม่จนกว่าจะมีผู้ชนะ</li>
+                <li><strong>คืนเบี้ย:</strong> หลังจากกำหนดผู้เล่นคนแรกได้แล้ว ผู้เล่นทุกคนจะคว่ำเบี้ยที่จั่วมาในถุง แล้วจั่วเบี้ยใหม่ 7 ตัวอีกครั้งเพื่อเริ่มต้นเกม</li>
+            </ol>
+
+            <h3>3. การสร้างคำและการลงเบี้ย:</h3>
+            <ol>
+                <li><strong>คำแรก:</strong> ผู้เล่นคนแรกต้องวางคำให้ตัวอักษรตัวใดตัวหนึ่งอยู่บนช่องกลางกระดาน (ช่อง H8 หรือ 8,8 ที่มีรูปดาว) ซึ่งเป็นช่อง Double Word Score (DW)</li>
+                <li><strong>คำถัดไป:</strong> ทุกคำที่วางหลังจากนั้นจะต้องเชื่อมต่อกับคำที่อยู่บนกระดานแล้วอย่างน้อยหนึ่งตัวอักษร โดยวางได้ทั้งแนวนอน (จากซ้ายไปขวา) หรือแนวตั้ง (จากบนลงล่าง) เท่านั้น</li>
+                <li><strong>ความถูกต้องของคำ:</strong>
+                    <ul>
+                        <li>คำทุกคำที่สร้างขึ้นบนกระดาน (ทั้งคำที่คุณวางโดยตรง และคำใหม่ที่เกิดขึ้นจากการเชื่อมต่อกันในแนวตั้งฉาก) จะต้องเป็นคำที่มีความหมายและอยู่ในพจนานุกรมที่ตกลงใช้กันในการแข่งขัน</li>
+                        <li>ผู้เล่นสามารถทักท้วงคำของคู่ต่อสู้ได้ หากสงสัยว่าไม่ถูกต้อง</li>
+                    </ul>
+                </li>
+                <li><strong>การจั่วเบี้ย:</strong> หลังจากลงคำและนับคะแนนแล้ว ผู้เล่นจะจั่วเบี้ยใหม่จากถุงเพื่อให้เบี้ยในมือครบ 7 ตัวเสมอ เว้นแต่เบี้ยในถุงจะหมด</li>
+            </ol>
+
+            <h3>4. การกระทำในตาเดิน (Actions per Turn):</h3>
+            ในแต่ละตาเดิน ผู้เล่นสามารถเลือกทำได้เพียง 1 ใน 3 อย่างต่อไปนี้:
+            <ol>
+                <li><strong>วางคำ:</strong> ลงเบี้ยเพื่อสร้างคำบนกระดานและจั่วเบี้ยเพิ่มให้ครบ 7 ตัว</li>
+                <li><strong>เปลี่ยนเบี้ย (Exchange Tiles):</strong>
+                    <ul>
+                        <li>ผู้เล่นสามารถเลือกที่จะเปลี่ยนเบี้ยทั้งหมดในมือ (7 ตัว) หรือบางส่วนได้</li>
+                        <li>หากเลือกเปลี่ยนเบี้ย จะต้องคว่ำเบี้ยที่ต้องการเปลี่ยนลงในถุง จั่วเบี้ยใหม่ในจำนวนเท่าเดิม แล้วจึงเขย่าถุง</li>
+                        <li>การเปลี่ยนเบี้ยจะทำให้เสียตาเดินนั้นไป (ไม่สามารถลงคำในตานั้นได้)</li>
+                        <li>สามารถเปลี่ยนเบี้ยได้ต่อเมื่อมีเบี้ยเหลือในถุงอย่างน้อย 7 ตัวเท่านั้น หากเหลือน้อยกว่า 7 ตัว จะไม่สามารถเปลี่ยนเบี้ยครบ 7 ตัวได้ (แต่ยังเปลี่ยนน้อยกว่า 7 ตัวได้ หากเบี้ยในถุงเพียงพอ)</li>
+                    </ul>
+                </li>
+                <li><strong>ผ่านตา (Pass):</strong>
+                    <ul>
+                        <li>ผู้เล่นสามารถเลือกที่จะไม่ลงคำหรือเปลี่ยนเบี้ยได้ โดยเพียงแค่ผ่านตาเดินนั้นไป</li>
+                        <li>หากผู้เล่นทั้งสองคน (ในกรณีเล่น 2 คน) ผ่านตาเดินติดต่อกัน 2 ครั้ง เกมจะจบลงโดยอัตโนมัติ</li>
+                    </ul>
+                </li>
+            </ol>
+
+            <h3>5. การใช้เบี้ย 'Blank':</h3>
+            <ul>
+                <li>เบี้ย 'Blank' (เบี้ยว่าง) ไม่มีคะแนนในตัวเอง แต่สามารถใช้แทนตัวอักษรใดก็ได้ตามที่ผู้เล่นต้องการ (เช่น ใช้แทน 'A' หรือ 'Z')</li>
+                <li>เมื่อใช้เบี้ย 'Blank' จะต้องระบุให้คู่ต่อสู้ทราบว่าจะใช้แทนตัวอักษรใด และไม่สามารถเปลี่ยนกลับได้ตลอดเกม</li>
+                <li>เบี้ย 'Blank' จะไม่ได้รับคะแนนจากช่องโบนัสตัวอักษร (LS, TS) แต่คำที่ใช้เบี้ย 'Blank' จะได้รับคะแนนจากช่องโบนัสคำ (DW, TW)</li>
+            </ul>
+
+            <h3>6. การสิ้นสุดเกม:</h3>
+            เกมจะจบลงเมื่อ:
+            <ul>
+                <li>เบี้ยในถุงหมด และผู้เล่นคนใดคนหนึ่งใช้เบี้ยในมือจนหมด (Go Out)</li>
+                <li>หรือเมื่อผู้เล่นทั้งสองคนผ่านตาเดินติดกัน 2 ครั้ง (แม้เบี้ยในถุงยังไม่หมดก็ตาม)</li>
+            </ul>
+
+            <h3>7. การนับคะแนนสุดท้าย:</h3>
+            <ul>
+                <li>เมื่อเกมจบลง ผู้เล่นแต่ละคนจะนำคะแนนรวมที่ได้ตลอดเกมมาหักลบด้วยคะแนนของเบี้ยที่ยังเหลืออยู่ในมือของตน (เบี้ย 'blank' ที่เหลือในมือมีค่า 0 คะแนน)</li>
+                <li>หากผู้เล่นคนใดใช้เบี้ยจนหมดก่อน (Go Out) และเบี้ยในถุงหมดแล้ว ผู้เล่นคนนั้นจะถูกบวกเพิ่มด้วยคะแนนรวมของเบี้ยที่เหลืออยู่ในมือของคู่ต่อสู้ทั้งหมด</li>
+                <li>ผู้ที่มีคะแนนรวมสุดท้ายสูงสุดจะเป็นผู้ชนะในเกมนั้น</li>
+            </ul>
+        </section>
+
+        <section id="scoring-section" class="content-section">
+            <h2><i class="fas fa-coins"></i> การคำนวณคะแนน & โบนัสบิงโก</h2>
+            <div class="section-part">
+                <h3>การคำนวณคะแนน</h3>
+                <p>คะแนนของแต่ละคำที่วางบนกระดานจะถูกคำนวณตามกฎต่อไปนี้:</p>
+                <ol>
+                    <li><strong>คะแนนพื้นฐานของตัวอักษร:</strong> แต่ละตัวอักษรมีคะแนนต่างกัน (ดูตารางในส่วน "เบี้ยตัวอักษร")</li>
+                    <li><strong>โบนัสตัวอักษร (Letter Multipliers):</strong>
+                        <ul>
+                            <li>หากวางตัวอักษรบนช่อง **Double Letter Score (LS)** คะแนนของตัวอักษรนั้นจะถูกคูณสอง</li>
+                            <li>หากวางตัวอักษรบนช่อง **Triple Letter Score (TS)** คะแนนของตัวอักษรนั้นจะถูกคูณสาม</li>
+                            <li><strong>ข้อควรจำ:</strong> เบี้ย 'Blank' ที่วางบนช่อง LS/TS จะไม่ได้รับคะแนนโบนัส</li>
+                        </ul>
+                    </li>
+                    <li><strong>โบนัสคำ (Word Multipliers):</strong>
+                        <ul>
+                            <li>หากคำที่สร้างขึ้นผ่านช่อง **Double Word Score (DW)** คะแนนรวมของทั้งคำจะถูกคูณสอง</li>
+                            <li>หากคำที่สร้างขึ้นผ่านช่อง **Triple Word Score (TW)** คะแนนรวมของทั้งคำจะถูกคูณสาม</li>
+                            <li>**ลำดับการคำนวณ:** คะแนนโบนัสตัวอักษรจะถูกคำนวณก่อน แล้วจึงนำคะแนนรวมที่ได้ไปคูณด้วยโบนัสคำ (หากมี)</li>
+                            <li>**ข้อควรจำ: หากคำเดียวผ่านช่องโบนัสคำหลายช่อง (เช่น ผ่านทั้ง DW และ TW) คะแนนจะถูกคูณตามลำดับ เช่น คูณสองก่อนแล้วค่อยคูณสาม**</li>
+                        </ul>
+                    </li>
+                    <li><strong>คำที่ตัดกัน (Intersecting Words):</strong> หากการวางคำทำให้เกิดคำใหม่ในแนวตั้งฉาก คำใหม่เหล่านั้นก็จะถูกนับคะแนนด้วย โดยใช้เบี้ยที่วางใหม่ในคำนั้นๆ ร่วมกับเบี้ยเดิมบนกระดาน</li>
+                    <li><strong>โบนัสบิงโก:</strong> ได้รับเพิ่มอีก 50 คะแนน หากสามารถวางเบี้ยทั้ง 7 ตัวในตาเดียว (ดูรายละเอียดด้านล่าง)</li>
+                </ol>
+
+                <h4>ตัวอย่างการคำนวณคะแนน:</h4>
+                <p>สมมติว่าคุณวางคำว่า "PLAY" (P=3, L=1, A=1, Y=4) โดยมีเงื่อนไขดังนี้:</p>
+                <ul>
+                    <li>'P' อยู่บนช่อง Double Letter Score (LS)</li>
+                    <li>'L' อยู่บนช่อง Triple Letter Score (TS)</li>
+                    <li>ทั้งคำ "PLAY" ผ่านช่อง Double Word Score (DW)</li>
+                    <li>คุณใช้เบี้ยครบ 7 ตัวในตานี้ (บิงโก!)</li>
+                </ul>
+                <p><strong>ขั้นตอนการคำนวณ:</strong></p>
+                <ol>
+                    <li><strong>คำนวณคะแนนตัวอักษรพร้อมโบนัส:</strong>
+                        <ul>
+                            <li>P: 3 * 2 (LS) = 6 คะแนน</li>
+                            <li>L: 1 * 3 (TS) = 3 คะแนน</li>
+                            <li>A: 1 คะแนน</li>
+                            <li>Y: 4 คะแนน</li>
+                            <li>รวมคะแนนตัวอักษร: 6 + 3 + 1 + 4 = <strong>14 คะแนน</strong></li>
+                        </ul>
+                    </li>
+                    <li><strong>คำนวณคะแนนรวมคำพร้อมโบนัสคำ:</strong>
+                        <ul>
+                            <li>14 (คะแนนรวมตัวอักษร) * 2 (จาก DW) = <strong>28 คะแนน</strong></li>
+                        </ul>
+                    </li>
+                    <li><strong>บวกคะแนนบิงโก:</strong>
+                        <ul>
+                            <li>28 (คะแนนคำ) + 50 (บิงโก) = <strong>78 คะแนน</strong></li>
+                        </ul>
+                    </li>
+                </ol>
+                <p>ดังนั้น ในตานี้คุณจะได้รับคะแนนรวม <strong>78 คะแนน!</strong></p>
+            </div>
+
+            <div class="section-part">
+                <h3><i class="fas fa-hand-sparkles"></i> โบนัสบิงโก (Bingo!)</h3>
+                <p>การ **บิงโก (Bingo!)** เป็นโอกาสทองในการทำคะแนนใน Scrabble! จะเกิดขึ้นเมื่อผู้เล่นสามารถวางเบี้ย **ทั้งหมด 7 ตัว** ที่มีอยู่ในมือ (ในการเล่นตาเดียว) ลงบนกระดานเพื่อสร้างคำที่มีความยาว **7 ตัวอักษรขึ้นไป**</p>
+                <p>ผู้เล่นที่บิงโกจะได้รับ **คะแนนโบนัสพิเศษ 50 คะแนน** เพิ่มจากคะแนนปกติของคำที่สร้างขึ้น ทำให้การบิงโกเป็นเป้าหมายสำคัญของผู้เล่นที่ต้องการชัยชนะอย่างมาก</p>
+                <p><strong>เคล็ดลับในการทำบิงโก:</strong></p>
+                <ul>
+                    <li>**รู้คำศัพท์ 7-8 ตัวอักษร:** พยายามจดจำคำศัพท์ที่มีความยาว 7 หรือ 8 ตัวอักษรบ่อยๆ โดยเฉพาะคำที่มีตัวอักษรใช้บ่อยอย่าง A, E, I, N, R, S, T, L ซึ่งมีโอกาสบิงโกได้ง่ายกว่า</li>
+                    <li>**จัดการเบี้ยในมือ: (Rack Management):** พยายามรักษาเบี้ยในมือให้มีความหลากหลายของสระและพยัญชนะ (เช่น มีสระ 3-4 ตัว พยัญชนะ 3-4 ตัว) และมีเบี้ยที่มีโอกาสต่อเป็นคำยาวๆ ได้ง่าย เช่น ตัวอักษรที่สามารถต่อกับตัวอักษรอื่นๆ ได้ง่าย (เช่น E, R, S, T, L, N)</li>
+                    <li>**ใช้เบี้ย 'Blank' ให้เป็นประโยชน์:** เบี้ย 'Blank' เป็นตัวช่วยสำคัญที่สุดในการบิงโก เพราะสามารถใช้แทนตัวอักษรใดก็ได้ที่คุณขาดไปเพื่อสร้างคำยาว</li>
+                    <li>**มองหาช่องเปิดบนกระดาน: (Board Vision):** สังเกตช่องเปิดบนกระดานที่สามารถรองรับคำยาว 7 ตัวอักษรขึ้นไปได้ โดยเฉพาะช่องที่นำไปสู่โบนัสคำ (DW, TW) ที่ยังว่างอยู่</li>
+                    <li>**สร้างช่องให้ตัวเอง: (Opening up the Board):** บางครั้งการลงคำสั้นๆ เพื่อเปิดพื้นที่บนกระดานให้คุณสามารถวางคำยาวๆ ในตาถัดไปก็เป็นกลยุทธ์ที่ดี แต่ต้องระวังไม่ให้เปิดโอกาสให้คู่ต่อสู้ทำคะแนนได้มากกว่า</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="strategy-section" class="content-section">
+            <h2><i class="fas fa-brain"></i> กลยุทธ์การเล่น Scrabble เพื่อชัยชนะ</h2>
+            <p>การเล่น Scrabble ให้เก่งไม่ใช่แค่เรื่องของคำศัพท์เท่านั้น แต่ยังรวมถึงการวางแผนเชิงกลยุทธ์ที่ซับซ้อน นี่คือเคล็ดลับและแนวทางที่จะช่วยให้คุณพัฒนาการเล่นได้เหนือกว่าคู่ต่อสู้:</p>
+
+            <div class="section-part">
+                <h3>1. การจัดการเบี้ยในมือ (Rack Management) ขั้นสูง</h3>
+                <ul>
+                    <li>**รักษาเบี้ยที่ "Active":** ไม่ใช่แค่สมดุล แต่คือการมีเบี้ยที่สามารถนำไปสร้างคำยาวๆ ได้ทันที หรือมี "Hooks" (ตัวอักษรที่สามารถนำไปต่อหน้าหรือหลังคำที่มีอยู่แล้วได้) เช่น S, ED, ING, ER, Y, RE, UN, OUT</li>
+                    <li>**กำจัดเบี้ย "Troublesome":** เบี้ยที่มีคะแนนสูงแต่ลงยาก (เช่น Q, Z, J, X) ควรพยายามใช้ให้เร็วที่สุดบนช่องโบนัส แม้จะต้องลงคำสั้นๆ เพื่อกำจัดมันไปก็ตาม อย่าเก็บไว้จนจบเกม</li>
+                    <li>**"Vowel Dumps":** หากมีสระเยอะเกินไป (เช่น 5-6 ตัว) ให้พยายามหาทางลงคำที่ใช้สระจำนวนมาก (เช่น AERATE, IDEATE, OLEATE) เพื่อปรับสมดุลเบี้ยในมือให้ดีขึ้น</li>
+                    <li>**"Consonant Dumps":** ตรงกันข้าม หากมีพยัญชนะเยอะเกินไป ให้หาทางลงคำที่ใช้พยัญชนะมาก (เช่น STRENGTHS, PHLEGMS)</li>
+                    <li>**การจัดเรียงเบี้ย:** จัดเรียงเบี้ยในมือเป็นกลุ่มคำเล็กๆ ที่เป็นไปได้ เช่น "ING", "ED", "ER", "S" เพื่อให้เห็นโอกาสในการสร้างคำยาวและบิงโกได้ง่ายขึ้น</li>
+                </ul>
+            </div>
+
+            <div class="section-part">
+                <h3>2. การอ่านกระดานและการวางแผน (Board Play & Advanced Strategy)</h3>
+                <ul>
+                    <li>**การควบคุมช่องโบนัส (Bonus Square Control):**
+                        <ul>
+                            <li>**DW/TW Blockade:** พยายามไม่เปิดช่องทางให้คู่ต่อสู้ลงคำผ่านช่อง DW/TW ที่อยู่ใกล้กัน หากคุณไม่สามารถใช้ประโยชน์จากมันได้ทันที</li>
+                            <li>**"Hot Spots":** จุดตัดของช่องโบนัส (เช่น ช่อง DW ที่ติดกับช่อง LS) เป็นจุดที่ทำคะแนนได้มหาศาล ควรพยายามใช้เองหรือบล็อกไม่ให้คู่ต่อสู้ใช้</li>
+                        </ul>
+                    </li>
+                    <li>**การสร้าง "Parallel Plays" (คำขนาน) และ "Hooks" (คำต่อคำ):**
+                        <ul>
+                            <li>**Parallel Play:** การวางคำขนานกับคำที่มีอยู่บนกระดาน ทำให้เกิดคำใหม่หลายคำในแนวตั้งฉากพร้อมกัน (เช่น มี "CAR" อยู่บนกระดาน คุณวาง "BUS" ขนานกัน โดย B อยู่ใต้ C, U อยู่ใต้ A, S อยู่ใต้ R จะทำให้เกิดคำว่า "CB", "AU", "RS" ซึ่งต้องเป็นคำที่ถูกต้องด้วย) เป็นวิธีทำคะแนนที่ทรงพลังและมักถูกมองข้าม</li>
+                            <li>**Hooking:** การเพิ่มตัวอักษรหน้าหรือหลังคำที่มีอยู่แล้วบนกระดาน (เช่น "CAT" กลายเป็น "SCAT" หรือ "CATER") เป็นวิธีง่ายๆ ในการเพิ่มคะแนนและสร้างคำใหม่ในแนวตั้งฉาก</li>
+                        </ul>
+                    </li>
+                    <li>**"Leave a Good Rack":** การเลือกที่จะลงคำที่ได้คะแนนน้อยกว่า เพื่อให้เหลือเบี้ยในมือ (Rack) ที่มีโอกาสสร้างคำยาวๆ หรือบิงโกได้ง่ายขึ้นในตาถัดไป</li>
+                    <li>**การแลกเปลี่ยนเบี้ยเชิงกลยุทธ์ (Strategic Exchanges):** หากเบี้ยในมือคุณแย่มากๆ และไม่มีโอกาสลงคำดีๆ การยอมเสียตาเพื่อเปลี่ยนเบี้ย (โดยเฉพาะหากเหลือเบี้ยในถุงเยอะ) อาจเป็นการลงทุนที่ดีกว่าการลงคำที่ได้คะแนนน้อยมาก</li>
+                    <li>**"Fishing" for Tiles:** การลงคำสั้นๆ ที่เปิดช่องทางให้คู่ต่อสู้สามารถลงคำได้ เพื่อหวังว่าคู่ต่อสู้จะเปิดช่องทางสำหรับคำบิงโกของคุณในตาถัดไป (มีความเสี่ยงสูง ต้องใช้เมื่อจำเป็นเท่านั้น)</li>
+                </ul>
+            </div>
+
+            <div class="section-part">
+                <h3>3. การนับเบี้ยและจดจำ (Tile Tracking & Memorization)</h3>
+                <ul>
+                    <li>**นับเบี้ยที่สำคัญ:** พยายามจดจำจำนวนเบี้ยที่เหลือในถุง โดยเฉพาะเบี้ยที่มีค่าสูง (Q, Z, J, X) และเบี้ย 'Blank' เพื่อประเมินโอกาสในการจั่วได้และวางแผนการเล่น</li>
+                    <li>**"Phoney" Words (คำปลอม):** การท้าทายคำศัพท์ของคู่ต่อสู้ แม้จะไม่แน่ใจว่าถูกต้องหรือไม่ เพื่อหวังว่าคำนั้นจะเป็นคำปลอม (หากคู่ต่อสู้ลงคำปลอม จะถูกปรับคะแนนและเสียตาเดิน) แต่หากท้าทายผิด คุณก็จะเสียตาเดินเช่นกัน</li>
+                    <li>**คำศัพท์ 2-3 ตัวอักษร:** การจดจำคำศัพท์ 2-3 ตัวอักษรทั้งหมดเป็นสิ่งสำคัญอย่างยิ่ง เพราะใช้บ่อยในการเชื่อมต่อคำ, ทำคะแนนเล็กๆ น้อยๆ และเปิดช่องทางให้คำอื่นๆ</li>
+                    <li>**Prefixes/Suffixes:** จดจำคำนำหน้าและคำต่อท้ายที่ใช้บ่อยในภาษาอังกฤษ (เช่น UN-, RE-, -ING, -ED, -ER, -EST, -LY) เพื่อช่วยในการสร้างคำยาวๆ</li>
+                </ul>
+            </div>
+
+            <div class="section-part">
+                <h3>4. การเล่นเมื่อใกล้จบเกม (Endgame Mastery)</h3>
+                <ul>
+                    <li>**การคำนวณเบี้ยที่เหลือ:** เมื่อเบี้ยในถุงเหลือน้อย (โดยเฉพาะ 6-7 ตัวสุดท้าย) ควรพยายามนับเบี้ยที่ยังไม่ถูกลงเพื่อวางแผนการใช้เบี้ยในมือให้หมด (Go Out)</li>
+                    <li>**"Playing for the Out":** การวางแผนให้คุณเป็นคนใช้เบี้ยในมือหมดก่อนคู่ต่อสู้ เพราะคุณจะได้รับคะแนนเบี้ยที่เหลืออยู่ในมือคู่ต่อสู้ทั้งหมดเป็นโบนัส</li>
+                    <li>**การบล็อก (Blocking):** ในช่วงท้ายเกม การบล็อกคู่ต่อสู้ไม่ให้ลงคำคะแนนสูง หรือไม่ให้ใช้เบี้ยหมด (หากคุณนำอยู่) เป็นสิ่งสำคัญอย่างยิ่ง บางครั้งการลงคำที่ได้คะแนนน้อยเพื่อปิดช่องสำคัญๆ ก็คุ้มค่ากว่า</li>
+                    <li>**การเปิดโอกาสให้คู่ต่อสู้?:** ในบางสถานการณ์ หากคุณมีเบี้ยไม่ดีมากๆ และไม่มีโอกาสใช้หมด การเปิดช่องให้คู่ต่อสู้ "Go Out" อาจเป็นทางเลือกที่ดีกว่าการพยายามลงคำที่ไม่ได้คะแนนเลย</li>
+                    <li>**จดจำคำที่ลงท้ายด้วย S, ED, ING:** เบี้ยเหล่านี้มักเป็นตัวช่วยสำคัญในการกำจัดเบี้ยตัวสุดท้ายของคุณหรือใช้เป็น Hook เพื่อสร้างคำยาว</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="history-benefits-section" class="content-section">
+            <h2><i class="fas fa-lightbulb"></i> ประวัติและประโยชน์ของการเล่น Scrabble</h2>
+            <div class="section-part">
+                <h3>ประวัติความเป็นมาของ Scrabble</h3>
+                <p>Scrabble ถูกคิดค้นขึ้นโดย **Alfred Butts** สถาปนิกชาวอเมริกันผู้ว่างงานในช่วงภาวะเศรษฐกิจตกต่ำครั้งใหญ่ (Great Depression) ในปี 1930s. เขาต้องการสร้างเกมที่ผสมผสานทักษะภาษาและการคิดเชิงกลยุทธ์เข้าด้วยกัน</p>
+                <p>Butts วิเคราะห์หน้าหนังสือพิมพ์ The New York Times เพื่อคำนวณความถี่ของการใช้ตัวอักษรแต่ละตัวในภาษาอังกฤษ ซึ่งเป็นที่มาของการกำหนดคะแนนและจำนวนของเบี้ยแต่ละตัวในเกม</p>
+                <ul>
+                    <li>**ค.ศ. 1938:** Alfred Butts สร้างเกมต้นแบบชื่อ **"Lexico"** ซึ่งต่อมาเปลี่ยนเป็น **"Criss-Crosswords"**</li>
+                    <li>**ค.ศ. 1948:** Butts ขายสิทธิ์ในการผลิตเกมให้กับ **James Brunot** ผู้ประกอบการชาวอเมริกัน Brunot ได้ปรับปรุงกฎเล็กน้อยและตั้งชื่อใหม่ว่า **"Scrabble"**</li>
+                    <li>**ค.ศ. 1952:** Scrabble เริ่มได้รับความนิยมอย่างแพร่หลาย หลังจากที่ **Jack Straus** ประธานห้างสรรพสินค้า Macy's ได้เห็นเกมนี้และสั่งซื้อไปขายจำนวนมาก</li>
+                    <li>**ปัจจุบัน:** Scrabble เป็นหนึ่งในเกมกระดานที่ได้รับความนิยมมากที่สุดในโลก มีการแปลเป็นภาษาต่างๆ มากกว่า 30 ภาษา และมีการแข่งขันระดับโลกอย่างสม่ำเสมอ</li>
+                </ul>
+            </div>
+
+            <div class="section-part">
+                <h3>ประโยชน์ของการเล่น Scrabble</h3>
+                <p>Scrabble ไม่ใช่แค่เกมเพื่อความบันเทิง แต่ยังเป็นเครื่องมืออันทรงพลังในการพัฒนาทักษะหลายด้าน:</p>
+                <ul>
+                    <li><strong>พัฒนาคลังคำศัพท์และทักษะภาษา:</strong> ผู้เล่นจะเรียนรู้คำศัพท์ใหม่ๆ อย่างต่อเนื่อง ทั้งคำทั่วไปและคำเฉพาะที่ใช้ได้ในเกม ซึ่งช่วยเพิ่มพูนความรู้ด้านภาษาได้อย่างยอดเยี่ยม</li>
+                    <li><strong>ฝึกการคิดวิเคราะห์และวางแผน:</strong> การต้องตัดสินใจเลือกคำที่ดีที่สุดจากเบี้ยที่มี การมองหาช่องทำคะแนนบนกระดาน และการวางแผนล่วงหน้าหลายตาเดิน ช่วยพัฒนาทักษะการคิดเชิงกลยุทธ์และการแก้ปัญหา</li>
+                    <li><strong>เสริมสร้างทักษะทางคณิตศาสตร์:</strong> การคำนวณคะแนนของคำ การบวกโบนัส และการเปรียบเทียบคะแนนกับคู่ต่อสู้ ช่วยฝึกฝนการคิดเลขเร็วและแม่นยำ</li>
+                    <li><strong>พัฒนาสมาธิและทักษะการสังเกต:</strong> ผู้เล่นต้องจดจ่อกับเบี้ยในมือ กระดาน และเบี้ยที่คู่ต่อสู้มี เพื่อหาโอกาสและป้องกันการทำคะแนน</li>
+                    <li><strong>เพิ่มความสามารถในการตัดสินใจภายใต้แรงกดดัน:</strong> โดยเฉพาะเมื่อมีเวลาจำกัด ผู้เล่นต้องตัดสินใจอย่างรวดเร็วและมีประสิทธิภาพ</li>
+                    <li><strong>ส่งเสริมการปฏิสัมพันธ์ทางสังคม:</strong> เป็นเกมที่เล่นร่วมกับผู้อื่น สร้างการพูดคุยและเสริมสร้างความสัมพันธ์ที่ดี</li>
+                    <li><strong>กระตุ้นการทำงานของสมอง:</strong> การใช้ภาษา ตรรกะ และการคำนวณ ช่วยให้สมองได้ออกกำลังกายและชะลอความเสื่อมของสมอง</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="tiles-section" class="content-section">
+            <h2><i class="fas fa-th"></i> เบี้ยตัวอักษรและคะแนน</h2>
+            <p>ใน Scrabble ชุดเบี้ยมาตรฐานมีทั้งหมด 100 ตัว โดยแต่ละตัวอักษรมีจำนวนและคะแนนที่แตกต่างกัน ดังนี้:</p>
+            <table class="tile-distribution-table">
+                <thead>
+                    <tr>
+                        <th>ตัวอักษร</th>
+                        <th>คะแนน</th>
+                        <th>จำนวน</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>A</td><td>1</td><td>9</td></tr>
+                    <tr><td>B</td><td>3</td><td>2</td></tr>
+                    <tr><td>C</td><td>3</td><td>2</td></tr>
+                    <tr><td>D</td><td>2</td><td>4</td></tr>
+                    <tr><td>E</td><td>1</td><td>12</td></tr>
+                    <tr><td>F</td><td>4</td><td>2</td></tr>
+                    <tr><td>G</td><td>2</td><td>3</td></tr>
+                    <tr><td>H</td><td>4</td><td>2</td></tr>
+                    <tr><td>I</td><td>1</td><td>9</td></tr>
+                    <tr><td>J</td><td>8</td><td>1</td></tr>
+                    <tr><td>K</td><td>5</td><td>1</td></tr>
+                    <tr><td>L</td><td>1</td><td>4</td></tr>
+                    <tr><td>M</td><td>3</td><td>2</td></tr>
+                    <tr><td>N</td><td>1</td><td>6</td></tr>
+                    <tr><td>O</td><td>1</td><td>8</td></tr>
+                    <tr><td>P</td><td>3</td><td>2</td></tr>
+                    <tr><td>Q</td><td>10</td><td>1</td></tr>
+                    <tr><td>R</td><td>1</td><td>6</td></tr>
+                    <tr><td>S</td><td>1</td><td>4</td></tr>
+                    <tr><td>T</td><td>1</td><td>6</td></tr>
+                    <tr><td>U</td><td>1</td><td>4</td></tr>
+                    <tr><td>V</td><td>4</td><td>2</td></tr>
+                    <tr><td>W</td><td>4</td><td>2</td></tr>
+                    <tr><td>X</td><td>8</td><td>1</td></tr>
+                    <tr><td>Y</td><td>4</td><td>2</td></tr>
+                    <tr><td>Z</td><td>10</td><td>1</td></tr>
+                    <tr><td>BLANK</td><td>0</td><td>2</td></tr>
+                </tbody>
+            </table>
+            <p style="margin-top: 20px;"><strong>รวมเบี้ยทั้งหมด: 100 ตัว</strong></p>
+            <h4>ข้อสังเกต:</h4>
+            <ul>
+                <li>ตัวอักษรที่พบบ่อย เช่น E, A, I, O, N, R, T, L, S, U มีคะแนนต่ำ (1 คะแนน)</li>
+                <li>ตัวอักษรที่พบน้อยและใช้งานยาก เช่น Q, Z, J, X มีคะแนนสูง (8-10 คะแนน)</li>
+                <li>เบี้ย BLANK มีค่า 0 คะแนน แต่สามารถใช้แทนตัวอักษรใดก็ได้ ทำให้มีประโยชน์อย่างมากในการสร้างคำยาวๆ และทำ Bingo</li>
+            </ul>
+        </section>
+
+        <section id="about-section" class="content-section">
+            <h2><i class="fas fa-info-circle"></i> เกี่ยวกับ Scrabble Pro Hub</h2>
+            <p>Scrabble Pro Hub ถูกสร้างขึ้นเพื่อเป็นแหล่งรวมข้อมูลและเครื่องมือสำหรับผู้เล่น Scrabble ทุกระดับ ตั้งแต่ผู้เริ่มต้นที่ต้องการเรียนรู้กฎพื้นฐาน ไปจนถึงผู้เล่นที่มีประสบการณ์ที่ต้องการพัฒนาทักษะเชิงกลยุทธ์</p>
+            <p>เราเชื่อว่า Scrabble ไม่ใช่เพียงแค่เกม แต่เป็นการผสมผสานระหว่างความรู้ด้านภาษา การคิดวิเคราะห์ และการวางแผนที่ยอดเยี่ยม เว็บไซต์นี้จึงมุ่งมั่นที่จะนำเสนอเนื้อหาที่ถูกต้อง ครบถ้วน และเข้าใจง่าย เพื่อช่วยให้ทุกคนสามารถสนุกและเก่งขึ้นในเกม Scrabble ได้</p>
+            <p>เป้าหมายของเราคือการส่งเสริมความรักในการเล่น Scrabble และสร้างชุมชนผู้เล่นที่มีความรู้และความเข้าใจในเกมอย่างแท้จริง</p>
+
+            <h3>ติดต่อเรา:</h3>
+            <p>หากคุณมีข้อเสนอแนะ คำถาม หรือต้องการสอบถามข้อมูลเพิ่มเติม สามารถติดต่อเราได้ที่:</p>
+            <p><strong>อีเมล:</strong> <a href="mailto:scrabble.pro.hub@email.com" style="color: var(--primary-color); text-decoration: none;">scrabble.pro.hub@email.com</a></p>
+            <p>เรายินดีรับฟังทุกความคิดเห็นเพื่อนำมาปรับปรุงและพัฒนาเว็บไซต์ให้ดียิ่งขึ้น</p>
+        </section>
+
+        <footer class="footer">
+            <p>&copy; 2025 Scrabble Pro Hub. Designed for Scrabble enthusiasts.</p>
+        </footer>
+
+        <audio id="clickSound" src="click.mp3" preload="auto"></audio>
+
+        <div class="floating-elements">
+            <div class="tile" style="--z-index-val: 50px;">S</div>
+            <div class="tile" style="--z-index-val: 30px;">C</div>
+            <div class="tile" style="--z-index-val: 70px;">R</div>
+            <div class="tile" style="--z-index-val: 40px;">A</div>
+            <div class="tile" style="--z-index-val: 20px;">B</div>
+            <div class="tile" style="--z-index-val: 60px;">B</div>
+            <div class="tile" style="--z-index-val: 45px;">L</div>
+            <div class="tile" style="--z-index-val: 55px;">E</div>
+        </div>
+    </div>
+
+    <script>
+        // JavaScript for Timer and Navigation
+        const player1TimeDisplay = document.getElementById('player1-time');
+        const player2TimeDisplay = document.getElementById('player2-time');
+        const startButton = document.getElementById('startButton');
+        const pauseButton = document.getElementById('pauseButton');
+        const resetButton = document.getElementById('resetButton');
+        const switchPlayer1Button = document.getElementById('switchPlayer1');
+        const switchPlayer2Button = document.getElementById('switchPlayer2');
+        const currentTurnDisplay = document.getElementById('currentTurnDisplay');
+        const clickSound = document.getElementById('clickSound');
+
+        const navButtons = document.querySelectorAll('.nav-button');
+        const contentSections = document.querySelectorAll('.content-section');
+
+        const PLAYER_TIME_LIMIT = 22 * 60; // 22 minutes in seconds
+        const WARNING_TIME = 5 * 60; // 5 minutes (300 seconds) for warning
+        const CRITICAL_TIME = 1 * 60; // 1 minute (60 seconds) for critical
+
+        let timerInterval;
+        let isRunning = false;
+        let currentPlayer = 1;
+        let timeLeft = {
+            1: PLAYER_TIME_LIMIT,
+            2: PLAYER_TIME_LIMIT
+        };
+
+        function formatTime(totalSeconds) {
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = totalSeconds % 60;
+            return `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+        }
+
+        function updateTimerDisplay() {
+            player1TimeDisplay.textContent = formatTime(timeLeft[1]);
+            player2TimeDisplay.textContent = formatTime(timeLeft[2]);
+
+            // Apply time warning/critical classes
+            [player1TimeDisplay, player2TimeDisplay].forEach((display, index) => {
+                const playerNum = index + 1;
+                display.classList.remove('time-warning', 'time-critical');
+                if (timeLeft[playerNum] <= CRITICAL_TIME) {
+                    display.classList.add('time-critical');
+                } else if (timeLeft[playerNum] <= WARNING_TIME) {
+                    display.classList.add('time-warning');
+                }
+            });
+
+            updateSwitchButtonStyles();
+        }
+
+        function playClickSound() {
+            if (clickSound && typeof clickSound.play === 'function') {
+                clickSound.currentTime = 0;
+                clickSound.play().catch(e => {
+                    console.warn("Could not play sound, likely due to browser autoplay policy or missing file.", e);
+                });
+            }
+        }
+
+        function updateTimer() {
+            if (isRunning && timeLeft[currentPlayer] > 0) {
+                timeLeft[currentPlayer]--;
+                updateTimerDisplay();
+                if (timeLeft[currentPlayer] <= 0) {
+                    clearInterval(timerInterval);
+                    isRunning = false;
+                    alert(`เวลาของผู้เล่น ${currentPlayer} หมดลงแล้ว!`);
+                    currentTurnDisplay.textContent = 'เกมจบแล้ว';
+                    startButton.disabled = true;
+                    pauseButton.disabled = true;
+                    switchPlayer1Button.disabled = true;
+                    switchPlayer2Button.disabled = true;
+                    // Ensure the current player's time display stays red/critical
+                    const displayElement = currentPlayer === 1 ? player1TimeDisplay : player2TimeDisplay;
+                    displayElement.classList.add('time-critical');
+                    displayElement.classList.remove('time-warning');
+                }
+            }
+        }
+
+        function startTimer() {
+            playClickSound();
+            if (!isRunning) {
+                isRunning = true;
+                timerInterval = setInterval(updateTimer, 1000);
+                startButton.textContent = 'กำลังเดินเวลา...';
+                startButton.disabled = true;
+                pauseButton.disabled = false;
+                switchPlayer1Button.disabled = false;
+                switchPlayer2Button.disabled = false;
+                currentTurnDisplay.innerHTML = `ผู้เล่น <span>${currentPlayer}</span>`;
+            }
+        }
+
+        function pauseTimer() {
+            playClickSound();
+            if (isRunning) {
+                clearInterval(timerInterval);
+                isRunning = false;
+                startButton.textContent = 'เริ่มจับเวลา';
+                startButton.disabled = false;
+                switchPlayer1Button.disabled = true;
+                switchPlayer2Button.disabled = true;
+            }
+        }
+
+        function resetTimer() {
+            playClickSound();
+            clearInterval(timerInterval);
+            isRunning = false;
+            timeLeft = {
+                1: PLAYER_TIME_LIMIT,
+                2: PLAYER_TIME_LIMIT
+            };
+            currentPlayer = 1;
+            updateTimerDisplay();
+            startButton.textContent = 'เริ่มจับเวลา';
+            startButton.disabled = false;
+            pauseButton.disabled = true;
+            switchPlayer1Button.disabled = true;
+            switchPlayer2Button.disabled = true;
+            currentTurnDisplay.innerHTML = 'ผู้เล่น <span>1</span>';
+        }
+
+        function switchPlayer(playerNum) {
+            playClickSound();
+            if (timeLeft[playerNum] <= 0 && isRunning) { // Prevent switching to a player whose time has run out if timer is running
+                alert(`เวลาของผู้เล่น ${playerNum} หมดแล้ว ไม่สามารถสลับไปได้!`);
+                return;
+            }
+
+            if (isRunning) {
+                clearInterval(timerInterval);
+                currentPlayer = playerNum;
+                currentTurnDisplay.innerHTML = `ผู้เล่น <span>${currentPlayer}</span>`;
+                timerInterval = setInterval(updateTimer, 1000);
+            } else {
+                // If paused, just switch the current player display
+                currentPlayer = playerNum;
+                currentTurnDisplay.innerHTML = `ผู้เล่น <span>${currentPlayer}</span>`;
+            }
+            updateSwitchButtonStyles();
+        }
+
+        function updateSwitchButtonStyles() {
+            if (currentPlayer === 1) {
+                switchPlayer1Button.classList.add('active');
+                switchPlayer2Button.classList.remove('active');
+            } else {
+                switchPlayer2Button.classList.add('active');
+                switchPlayer1Button.classList.remove('active');
+            }
+        }
+
+        // --- Navigation Logic ---
+        function showSection(targetId) {
+            playClickSound();
+            contentSections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(targetId).classList.add('active');
+
+            navButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.dataset.target === targetId) {
+                    button.classList.add('active');
+                }
+            });
+            document.getElementById(targetId).scrollTop = 0; // Scroll to top of the new section
+        }
+
+        // Event Listeners for Timer
+        startButton.addEventListener('click', startTimer);
+        pauseButton.addEventListener('click', pauseTimer);
+        resetButton.addEventListener('click', resetTimer);
+        switchPlayer1Button.addEventListener('click', () => switchPlayer(1));
+        switchPlayer2Button.addEventListener('click', () => switchPlayer(2));
+
+        // Event Listeners for Navigation
+        navButtons.forEach(button => {
+            button.addEventListener('click', (event) => {
+                showSection(event.currentTarget.dataset.target); // Use currentTarget for robust event handling
+            });
+        });
+
+        // Initial setup
+        updateTimerDisplay();
+        pauseButton.disabled = true;
+        switchPlayer1Button.disabled = true;
+        switchPlayer2Button.disabled = true;
+        showSection('timer-section'); // Show timer section by default
+        currentTurnDisplay.innerHTML = 'ผู้เล่น <span>1</span>'; // Set initial turn display
+    </script>
+</body>
+</html>
